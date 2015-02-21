@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META name="GENERATOR" content="IBM WebSphere Studio">
+<TITLE>TestSelect.html</TITLE>
+</HEAD>
+<script language="JavaScript">
+<!--
+function gotoFunction() {
+	document.forms[document.forms.length-1].submit();
+}
+// -->
+</script>
+<BODY>
+
+	<FORM NAME="productGoto" ACTION="/Login.do" METHOD=POST>
+		<SELECT NAME="productList" onChange="gotoFunction()">
+			<OPTION VALUE="">Select a Product or API
+			<OPTION VALUE="/xxx">Accessibility
+			<OPTION VALUE="/yyy">Connected Device Configuration (CDC)
+		</SELECT>
+	</FORM>
+
+</BODY>
+</HTML>

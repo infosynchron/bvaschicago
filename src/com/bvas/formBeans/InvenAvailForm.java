@@ -1,0 +1,196 @@
+package com.bvas.formBeans;
+
+import org.apache.struts.action.ActionForm;
+
+public class InvenAvailForm extends ActionForm {
+
+  private String buttonClicked = null;
+
+  private String partNo = null;
+
+  private String interchangeNo = null;
+
+  private String makeModelName = null;
+
+  private String supplierId = null;
+
+  private String year = null;
+
+  private String costPrice = null;
+
+  private String walkinPrice = null;
+
+  private String listPrice = null;
+
+  private String actualPrice = null;
+
+  private String unitsInStock = null;
+
+  private String unitsOnOrder = null;
+
+  private String reorderLevel = null;
+
+//  private String compPrice = null;
+
+  private String keystoneNumber = null;
+
+  private String oemNumber = null;
+
+  private String location = null;
+
+  public String getButtonClicked() {
+    return (this.buttonClicked);
+  }
+
+  public void setButtonClicked(String buttonClicked) {
+    this.buttonClicked = buttonClicked;
+  }
+
+  public String getPartNo() {
+    return (this.partNo);
+  }
+
+  public void setPartNo(String partNo) {
+    this.partNo = partNo;
+  }
+
+  public String getInterchangeNo() {
+    return (this.interchangeNo);
+  }
+
+  public void setInterchangeNo(String interchangeNo) {
+    this.interchangeNo = interchangeNo;
+  }
+
+  public String getMakeModelName() {
+    return (this.makeModelName);
+  }
+
+  public void setMakeModelName(String makeModelName) {
+    this.makeModelName = makeModelName;
+  }
+
+  public String getSupplierId() {
+    return (this.supplierId);
+  }
+
+  public void setSupplierId(String supplierId) {
+    this.supplierId = supplierId;
+  }
+
+  public String getYear() {
+    return (this.year);
+  }
+
+  public void setYear(String year) {
+    this.year = year;
+  }
+
+  public String getCostPrice() {
+    return (this.costPrice);
+  }
+
+  public void setCostPrice(String costPrice) {
+    this.costPrice = costPrice;
+  }
+
+  public String getWalkinPrice() {
+    return (this.walkinPrice);
+  }
+
+  public void setWalkinPrice(String walkinPrice) {
+    this.walkinPrice = walkinPrice;
+  }
+
+  public String getListPrice() {
+    return (this.listPrice);
+  }
+
+  public void setListPrice(String listPrice) {
+    this.listPrice = listPrice;
+  }
+
+  public String getActualPrice() {
+    return (this.actualPrice);
+  }
+
+  public void setActualPrice(String actualPrice) {
+    this.actualPrice = actualPrice;
+  }
+
+  public String getUnitsInStock() {
+    return (this.unitsInStock);
+  }
+
+  public void setUnitsInStock(String unitsInStock) {
+    this.unitsInStock = unitsInStock;
+  }
+
+  public String getUnitsOnOrder() {
+    return (this.unitsOnOrder);
+  }
+
+  public void setUnitsOnOrder(String unitsOnOrder) {
+    this.unitsOnOrder = unitsOnOrder;
+  }
+
+  public String getReorderLevel() {
+    return (this.reorderLevel);
+  }
+
+  public void setReorderLevel(String reorderLevel) {
+    this.reorderLevel = reorderLevel;
+  }
+
+//  public String getCompPrice() {
+//    return (this.compPrice);
+//  }
+//
+//  public void setCompPrice(String compPrice) {
+//    this.compPrice = compPrice;
+//  }
+
+  public String getKeystoneNumber() {
+    return (this.keystoneNumber);
+  }
+
+  public void setKeystoneNumber(String keystoneNumber) {
+    this.keystoneNumber = keystoneNumber;
+  }
+
+  public String getOemNumber() {
+    return (this.oemNumber);
+  }
+
+  public void setOemNumber(String oemNumber) {
+    this.oemNumber = oemNumber;
+  }
+
+  public String getLocation() {
+    return (this.location);
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
+  public void reset() {
+    setPartNo("");
+    setInterchangeNo("");
+    setMakeModelName("");
+    setSupplierId("");
+    setYear("");
+    setCostPrice("");
+    setWalkinPrice("");
+    setListPrice("");
+    setActualPrice("");
+    setUnitsInStock("");
+    setUnitsOnOrder("");
+    setReorderLevel("");
+//    setCompPrice("");
+    setKeystoneNumber("");
+    setOemNumber("");
+    setLocation("");
+  }
+
+}

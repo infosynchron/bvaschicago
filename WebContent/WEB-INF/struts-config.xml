@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE struts-config PUBLIC          "-//Apache Software Foundation//DTD Struts Configuration 1.0//EN"          "http://jakarta.apache.org/struts/dtds/struts-config_1_0.dtd">
+
+<struts-config>
+	<!-- ========== Form Bean Definitions =================================== -->
+	<form-beans>
+		<form-bean name="LoginForm" type="com.bvas.formBeans.LoginForm" />
+		<form-bean name="MainMenuForm" type="com.bvas.formBeans.MainMenuForm" />
+
+		<form-bean name="ClientLookupForm" type="com.bvas.formBeans.ClientLookupForm" />
+
+		<form-bean name="ClientMaintForm" type="com.bvas.formBeans.ClientMaintForm" />
+
+		<form-bean name="FaxCoverForm" type="com.bvas.formBeans.FaxCoverForm" />
+
+		<form-bean name="InvenAvailForm" type="com.bvas.formBeans.InvenAvailForm" />
+
+		<form-bean name="CheckOtherInvenForm" type="com.bvas.formBeans.CheckOtherInvenForm" />
+
+		<form-bean name="InvenMaintMenuForm" type="com.bvas.formBeans.InvenMaintMenuForm" />
+
+		<form-bean name="InvenMaintForm" type="com.bvas.formBeans.InvenMaintForm" />
+
+		<form-bean name="ShowPatternForm" type="com.bvas.formBeans.ShowPatternForm" />
+
+		<form-bean name="DamagedPartsForm" type="com.bvas.formBeans.DamagedPartsForm" />
+
+		<form-bean name="MissingPartsForm" type="com.bvas.formBeans.MissingPartsForm" />
+
+		<form-bean name="PartHistoryForm" type="com.bvas.formBeans.PartHistoryForm" />
+
+		<form-bean name="PartChangesForm" type="com.bvas.formBeans.PartChangesForm" />
+
+		<form-bean name="PartsPendingForm" type="com.bvas.formBeans.PartsPendingForm" />
+
+		<form-bean name="OrderEvalForm" type="com.bvas.formBeans.OrderEvalForm" />
+
+		<form-bean name="InvoiceArchForm" type="com.bvas.formBeans.InvoiceArchForm" />
+
+		<form-bean name="InvoiceGenForm" type="com.bvas.formBeans.InvoiceGenForm" />
+
+		<form-bean name="AcctMenuForm" type="com.bvas.formBeans.AcctMenuForm" />
+
+		<form-bean name="MaintainFinanceForm" type="com.bvas.formBeans.MaintainFinanceForm" />
+
+		<form-bean name="EnterAmountsForm" type="com.bvas.formBeans.EnterAmountsForm" />
+
+		<form-bean name="WriteOffForm" type="com.bvas.formBeans.WriteOffForm" />
+
+		<form-bean name="BouncedChecksForm" type="com.bvas.formBeans.BouncedChecksForm" />
+
+		<form-bean name="CloseInvoicesForm" type="com.bvas.formBeans.CloseInvoicesForm" />
+
+		<form-bean name="CustomerHistoryForm" type="com.bvas.formBeans.CustomerHistoryForm" />
+
+		<form-bean name="IsDeliveredForm" type="com.bvas.formBeans.IsDeliveredForm" />		<form-bean name="IsDeliveredNewForm" type="com.bvas.formBeans.IsDeliveredNewForm" />
+
+		<form-bean name="CustomerAccountsForm" type="com.bvas.formBeans.CustomerAccountsForm" />
+
+		<form-bean name="OrderProcessMenuForm" type="com.bvas.formBeans.OrderProcessMenuForm" />
+
+		<form-bean name="WarehouseMenuForm" type="com.bvas.formBeans.WarehouseMenuForm" />
+
+		<form-bean name="DeliveriesMenuForm" type="com.bvas.formBeans.DeliveriesMenuForm" />
+
+		<form-bean name="SalesMenuForm" type="com.bvas.formBeans.SalesMenuForm" />
+
+		<form-bean name="Accounting2MenuForm" type="com.bvas.formBeans.Accounting2MenuForm" />
+
+		<form-bean name="RoutingMenuForm" type="com.bvas.formBeans.RoutingMenuForm" />
+
+		<form-bean name="PartsPulledForm" type="com.bvas.formBeans.PartsPulledForm" />
+
+		<form-bean name="PartsDeliveredForm" type="com.bvas.formBeans.PartsDeliveredForm" />
+
+		<form-bean name="MakeModelMaintForm" type="com.bvas.formBeans.MakeModelMaintForm" />
+
+		<form-bean name="ManufacMaintForm" type="com.bvas.formBeans.ManufacMaintForm" />
+
+		<form-bean name="CategoryForm" type="com.bvas.formBeans.CategoryForm" />
+
+		<form-bean name="SubCategoryForm" type="com.bvas.formBeans.SubCategoryForm" />
+
+		<form-bean name="OtherMaintForm" type="com.bvas.formBeans.OtherMaintForm" />
+
+		<form-bean name="LocalVendorMenuForm" type="com.bvas.formBeans.LocalVendorMenuForm" />
+
+		<form-bean name="LocalVendorMaintForm" type="com.bvas.formBeans.LocalVendorMaintForm" />
+
+		<form-bean name="LocalOrderForm" type="com.bvas.formBeans.LocalOrderForm" />
+
+		<form-bean name="TodaysOrdersForm" type="com.bvas.formBeans.TodaysOrdersForm" />
+
+		<form-bean name="ShowReportsForm" type="com.bvas.formBeans.ShowReportsForm" />
+
+		<form-bean name="VendorMaintForm" type="com.bvas.formBeans.VendorMaintForm" />
+
+		<form-bean name="VendorMenuForm" type="com.bvas.formBeans.VendorMenuForm" />
+
+		<form-bean name="VendorItemForm" type="com.bvas.formBeans.VendorItemForm" />
+
+		<form-bean name="VendorOrderForm" type="com.bvas.formBeans.VendorOrderForm" />
+
+		<form-bean name="VendorOurPartForm" type="com.bvas.formBeans.VendorOurPartForm" />
+
+		<form-bean name="VendorOrderFinalForm" type="com.bvas.formBeans.VendorOrderFinalForm" />
+
+		<form-bean name="VendorAdminUtilsForm" type="com.bvas.formBeans.VendorAdminUtilsForm" />
+
+		<form-bean name="VendorOrderDetailsForm" type="com.bvas.formBeans.VendorOrderDetailsForm" />
+
+	</form-beans>
+
+	<!-- ========== Global Forward Definitions ============================== -->
+	<global-forwards>		<forward name="Login" path="/html/Login.jsp" />		<forward name="MainMenu" path="/html/MainMenu.jsp" />
+		<forward name="ClientLookup" path="/html/ClientLookup.jsp" />
+		<forward name="ClientMaint" path="/html/ClientMaint.jsp" />
+		<forward name="FaxCover" path="/html/FaxCover.jsp" />
+		<forward name="InvenAvail" path="/html/InvenAvail.jsp" />
+		<forward name="CheckOtherInven" path="/html/CheckOtherInven.jsp" />
+		<forward name="InvenMaintMenu" path="/html/InvenMaintMenu.jsp" />
+		<forward name="InvenMaint" path="/html/InvenMaint.jsp" />
+		<forward name="ShowPattern" path="/html/ShowPattern.jsp" />
+		<forward name="DamagedParts" path="/html/DamagedParts.jsp" />
+		<forward name="MissingParts" path="/html/MissingParts.jsp" />
+		<forward name="PartHistory" path="/html/PartHistory.jsp" />
+		<forward name="PartChanges" path="/html/PartChanges.jsp" />
+		<forward name="OrderEval" path="/html/OrderEval.jsp" />
+		<forward name="InvoiceArch" path="/html/InvoiceArch.jsp" />
+		<forward name="InvoiceGen" path="/html/InvoiceGen.jsp" />
+		<forward name="AcctMenu" path="/html/AcctMenu.jsp" />
+		<forward name="MaintainFinance" path="/html/MaintainFinance.jsp" />
+		<forward name="EnterAmounts" path="/html/EnterAmounts.jsp" />
+		<forward name="WriteOff" path="/html/WriteOff.jsp" />
+		<forward name="BouncedChecks" path="/html/BouncedChecks.jsp" />
+		<forward name="CloseInvoices" path="/html/CloseInvoices.jsp" />
+		<forward name="CustomerHistory" path="/html/CustomerHistory.jsp" />
+		<forward name="IsDelivered" path="/html/IsDelivered.jsp" />		<forward name="IsDeliveredNew" path="/html/IsDeliveredNew.jsp" />
+		<forward name="CustomerAccounts" path="/html/CustomerAccounts.jsp" />
+		<forward name="OrderProcessMenu" path="/html/OrderProcessMenu.jsp" />
+		<forward name="WarehouseMenu" path="/html/WarehouseMenu.jsp" />
+		<forward name="DeliveriesMenu" path="/html/DeliveriesMenu.jsp" />
+		<forward name="SalesMenu" path="/html/SalesMenu.jsp" />
+		<forward name="Accounting2Menu" path="/html/Accounting2Menu.jsp" />
+		<forward name="RoutingMenu" path="/html/RoutingMenu.jsp" />
+		<forward name="PartsPending" path="/html/PartsPending.jsp" />
+		<forward name="PartsPulled" path="/html/PartsPulled.jsp" />
+		<forward name="PartsDelivered" path="/html/PartsDelivered.jsp" />
+		<forward name="MakeModelMaint" path="/html/MakeModelMaint.jsp" />
+		<forward name="ManufacMaint" path="/html/ManufacMaint.jsp" />
+		<forward name="Category" path="/html/Category.jsp" />
+		<forward name="SubCategory" path="/html/SubCategory.jsp" />
+		<forward name="OtherMaint" path="/html/OtherMaint.jsp" />
+		<forward name="LocalVendorMenu" path="/html/LocalVendorMenu.jsp" />
+		<forward name="LocalVendorMaint" path="/html/LocalVendorMaint.jsp" />
+		<forward name="LocalOrder" path="/html/LocalOrder.jsp" />
+		<forward name="TodaysOrders" path="/html/TodaysOrders.jsp" />
+		<forward name="ShowReports" path="/html/ShowReports.jsp" />
+		<forward name="VendorMenu" path="/html/VendorMenu.jsp" />
+		<forward name="VendorMaint" path="/html/VendorMaint.jsp" />
+		<forward name="VendorItem" path="/html/VendorItem.jsp" />
+		<forward name="VendorOrder" path="/html/VendorOrder.jsp" />
+		<forward name="VendorOurPart" path="/html/VendorOurPart.jsp" />
+		<forward name="VendorFinal" path="/html/VendorFinal.jsp" />
+		<forward name="VendorAdminUtils" path="/html/VendorAdminUtils.jsp" />
+		<forward name="VendorOrderDetails" path="/html/VendorOrderDetails.jsp" />		<forward name="ShowCOGIReports" path="/html/ShowCOGReport.jsp" />				
+	</global-forwards>
+
+	<!-- ========== Action Mapping Definitions ============================== -->
+	<action-mappings>		<action path="/Login" type="com.bvas.action.LoginAction" name="LoginForm"			scope="request" input="/html/Login.jsp" unknown="true">		</action>		<action path="/MainMenu" type="com.bvas.action.MainMenuAction"			name="MainMenuForm" scope="request" input="/html/MainMenu.jsp">
+		</action>
+		<action path="/ClientLookup" type="com.bvas.action.ClientLookupAction"
+			name="ClientLookupForm" scope="request" input="/html/ClientLookup.jsp">
+		</action>
+		<action path="/ClientMaint" type="com.bvas.action.ClientMaintAction"
+			name="ClientMaintForm" scope="request" input="/html/ClientMaint.jsp">
+		</action>
+		<action path="/FaxCover" type="com.bvas.action.FaxCoverAction"
+			name="FaxCoverForm" scope="request" input="/html/FaxCover.jsp">
+		</action>
+		<action path="/CheckOtherInven" type="com.bvas.action.CheckOtherInvenAction"
+			name="CheckOtherInvenForm" scope="request" input="/html/CheckOtherInven.jsp">
+		</action>
+		<action path="/InvenAvail" type="com.bvas.action.InvenAvailAction"
+			name="InvenAvailForm" scope="request" input="/html/InvenAvail.jsp">
+		</action>
+		<action path="/InvenMaintMenu" type="com.bvas.action.InvenMaintMenuAction"
+			name="InvenMaintMenuForm" scope="request" input="/html/InvenMaintMenu.jsp">
+		</action>
+		<action path="/InvenMaint" type="com.bvas.action.InvenMaintAction"
+			name="InvenMaintForm" scope="request" input="/html/InvenMaint.jsp">
+		</action>
+		<action path="/ShowPattern" type="com.bvas.action.ShowPatternAction"
+			name="ShowPatternForm" scope="request" input="/html/ShowPattern.jsp">
+		</action>
+		<action path="/DamagedParts" type="com.bvas.action.DamagedPartsAction"
+			name="DamagedPartsForm" scope="request" input="/html/DamagedParts.jsp">
+		</action>
+		<action path="/MissingParts" type="com.bvas.action.MissingPartsAction"
+			name="MissingPartsForm" scope="request" input="/html/MissingParts.jsp">
+		</action>
+		<action path="/PartHistory" type="com.bvas.action.PartHistoryAction"
+			name="PartHistoryForm" scope="request" input="/html/PartHistory.jsp">
+		</action>
+		<action path="/PartChanges" type="com.bvas.action.PartChangesAction"
+			name="PartChangesForm" scope="request" input="/html/PartChanges.jsp">
+		</action>
+		<action path="/OrderEval" type="com.bvas.action.OrderEvalAction"
+			name="OrderEvalForm" scope="request" input="/html/OrderEval.jsp">
+		</action>
+		<action path="/InvoiceArch" type="com.bvas.action.InvoiceArchAction"
+			name="InvoiceArchForm" scope="request" input="/html/InvoiceArch.jsp">
+		</action>
+		<action path="/InvoiceGen" type="com.bvas.action.InvoiceGenAction"
+			name="InvoiceGenForm" scope="request" input="/html/InvoiceGen.jsp">
+		</action>
+		<action path="/AcctMenu" type="com.bvas.action.AcctMenuAction"
+			name="AcctMenuForm" scope="request" input="/html/AcctMenu.jsp">
+		</action>
+		<action path="/MaintainFinance" type="com.bvas.action.MaintainFinanceAction"
+			name="MaintainFinanceForm" scope="request" input="/html/MaintainFinance.jsp">
+		</action>
+		<action path="/EnterAmounts" type="com.bvas.action.EnterAmountsAction"
+			name="EnterAmountsForm" scope="request" input="/html/EnterAmounts.jsp">
+		</action>
+		<action path="/WriteOff" type="com.bvas.action.WriteOffAction"
+			name="WriteOffForm" scope="request" input="/html/WriteOff.jsp">
+		</action>
+		<action path="/BouncedChecks" type="com.bvas.action.BouncedChecksAction"
+			name="BouncedChecksForm" scope="request" input="/html/BouncedChecks.jsp">
+		</action>
+		<action path="/CloseInvoices" type="com.bvas.action.CloseInvoicesAction"
+			name="CloseInvoicesForm" scope="request" input="/html/CloseInvoices.jsp">
+		</action>
+		<action path="/CustomerHistory" type="com.bvas.action.CustomerHistoryAction"
+			name="CustomerHistoryForm" scope="request" input="/html/CustomerHistory.jsp">
+		</action>
+		<action path="/IsDelivered" type="com.bvas.action.IsDeliveredAction"
+			name="IsDeliveredForm" scope="request" input="/html/IsDelivered.jsp">
+		</action>		<action path="/IsDeliveredNew" type="com.bvas.action.IsDeliveredNewAction"			name="IsDeliveredNewForm" scope="request" input="/html/IsDeliveredNew.jsp">		</action>
+		<action path="/CustomerAccounts" type="com.bvas.action.CustomerAccountsAction"
+			name="CustomerAccountsForm" scope="request" input="/html/CustomerAccounts.jsp">
+		</action>
+		<action path="/OrderProcessMenu" type="com.bvas.action.OrderProcessMenuAction"
+			name="OrderProcessMenuForm" scope="request" input="/html/OrderProcessMenu.jsp">
+		</action>
+		<action path="/WarehouseMenu" type="com.bvas.action.WarehouseMenuAction"
+			name="WarehouseMenuForm" scope="request" input="/html/WarehouseMenu.jsp">
+		</action>
+		<action path="/DeliveriesMenu" type="com.bvas.action.DeliveriesMenuAction"
+			name="DeliveriesMenuForm" scope="request" input="/html/DeliveriesMenu.jsp">
+		</action>
+		<action path="/SalesMenu" type="com.bvas.action.SalesMenuAction"
+			name="SalesMenuForm" scope="request" input="/html/SalesMenu.jsp">
+		</action>
+		<action path="/Accounting2Menu" type="com.bvas.action.Accounting2MenuAction"
+			name="Accounting2MenuForm" scope="request" input="/html/Accounting2Menu.jsp">
+		</action>
+		<action path="/RoutingMenu" type="com.bvas.action.RoutingMenuAction"
+			name="RoutingMenuForm" scope="request" input="/html/RoutingMenu.jsp">
+		</action>
+		<action path="/PartsPending" type="com.bvas.action.PartsPendingAction"
+			name="PartsPendingForm" scope="request" input="/html/PartsPending.jsp">
+		</action>
+		<action path="/PartsPulled" type="com.bvas.action.PartsPulledAction"
+			name="PartsPulledForm" scope="request" input="/html/PartsPulled.jsp">
+		</action>
+		<action path="/PartsDelivered" type="com.bvas.action.PartsDeliveredAction"
+			name="PartsDeliveredForm" scope="request" input="/html/PartsDelivered.jsp">
+		</action>
+		<action path="/MakeModelMaint" type="com.bvas.action.MakeModelMaintAction"
+			name="MakeModelMaintForm" scope="request" input="/html/MakeModelMaint.jsp">
+		</action>
+		<action path="/ManufacMaint" type="com.bvas.action.ManufacMaintAction"
+			name="ManufacMaintForm" scope="request" input="/html/ManufacMaint.jsp">
+		</action>
+		<action path="/Category" type="com.bvas.action.CategoryAction"
+			name="CategoryForm" scope="request" input="/html/Category.jsp">
+		</action>
+		<action path="/SubCategory" type="com.bvas.action.SubCategoryAction"
+			name="SubCategoryForm" scope="request" input="/html/SubCategory.jsp">
+		</action>
+		<action path="/OtherMaint" type="com.bvas.action.OtherMaintAction"
+			name="OtherMaintForm" scope="request" input="/html/OtherMaint.jsp">
+		</action>
+		<action path="/LocalVendorMenu" type="com.bvas.action.LocalVendorMenuAction"
+			name="LocalVendorMenuForm" scope="request" input="/html/LocalVendorMenu.jsp">
+		</action>
+		<action path="/LocalVendorMaint" type="com.bvas.action.LocalVendorMaintAction"
+			name="LocalVendorMaintForm" scope="request" input="/html/LocalVendorMaint.jsp">
+		</action>
+		<action path="/LocalOrder" type="com.bvas.action.LocalOrderAction"
+			name="LocalOrderForm" scope="request" input="/html/LocalOrder.jsp">
+		</action>
+		<action path="/TodaysOrders" type="com.bvas.action.TodaysOrdersAction"
+			name="TodaysOrdersForm" scope="request" input="/html/TodaysOrders.jsp">
+		</action>
+		<action path="/ShowReports" type="com.bvas.action.ShowReportsAction"
+			name="ShowReportsForm" scope="request" input="/html/ShowReports.jsp">
+		</action>
+		<action path="/VendorMenu" type="com.bvas.action.VendorMenuAction"
+			name="VendorMenuForm" scope="request" input="/html/VendorMenu.jsp">
+		</action>
+		<action path="/VendorMaint" type="com.bvas.action.VendorMaintAction"
+			name="VendorMaintForm" scope="request" input="/html/VendorMaint.jsp">
+		</action>
+		<action path="/VendorItem" type="com.bvas.action.VendorItemAction"
+			name="VendorItemForm" scope="request" input="/html/VendorItem.jsp">
+		</action>
+		<action path="/VendorOrder" type="com.bvas.action.VendorOrderAction"
+			name="VendorOrderForm" scope="request" input="/html/VendorOrder.jsp">
+		</action>
+		<action path="/VendorOurPart" type="com.bvas.action.VendorOurPartAction"
+			name="VendorOurPartForm" scope="request" input="/html/VendorOurPart.jsp">
+		</action>
+		<action path="/VendorOrderFinal" type="com.bvas.action.OrderFinalAction"
+			name="VendorOrderFinalForm" scope="request" input="/html/VendorFinal.jsp">
+		</action>
+		<action path="/VendorAdminUtils" type="com.bvas.action.VendorAdminUtilsAction"
+			name="VendorAdminUtilsForm" scope="request" input="/html/VendorAdminUtils.jsp">
+		</action>
+		<action path="/VendorOrderDetails" type="com.bvas.action.VendorOrderDetailsAction"
+			name="VendorOrderDetailsForm" scope="request" input="/html/VendorOrderDetails.jsp">
+		</action>
+	</action-mappings>
+
+
+	<!-- The standard administrative actions available with Struts -->    <!-- These would be either omitted or protected by security -->	<!-- in a real application deployment -->	<!-- <action path="/admin/addFormBean" type="org.apache.struts.actions.AddFormBeanAction"/> 		<action path="/admin/addForward" type="org.apache.struts.actions.AddForwardAction"/> 		<action path="/admin/addMapping" type="org.apache.struts.actions.AddMappingAction"/> 		<action path="/admin/reload" type="org.apache.struts.actions.ReloadAction"/> 		<action path="/admin/removeFormBean" type="org.apache.struts.actions.RemoveFormBeanAction"/> 		<action path="/admin/removeForward" type="org.apache.struts.actions.RemoveForwardAction"/> 		<action path="/admin/removeMapping" type="org.apache.struts.actions.RemoveMappingAction"/> --></struts-config>
