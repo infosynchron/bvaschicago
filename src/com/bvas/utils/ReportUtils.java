@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -2280,6 +2281,136 @@ public class ReportUtils {
     }
     return toShowInven;
   }
+
+  public static String findCOGIByOrderDate(UserBean user, String fromDate,
+			String toDate) throws UserException {
+		if (!user.getRole().trim().equalsIgnoreCase("High")) {
+			throw new UserException(
+					"YOU ARE NOT AUTHORIZED TO VIEW THIS REPORT");
+		}
+	
+		 List<InvoiceDetailsOurPrice> missingourpricelist =
+		 UpdateOurPrice.getMissingOurPrice("");
+		 if (missingourpricelist.size() > 0) {
+		 UpdateOurPrice.updateOurPrices(missingourpricelist, "");
+		 }
+		Connection conn = null;
+		Statement pstmt = null;
+		ResultSet rs = null;
+		StringBuilder totals = new StringBuilder();
+
+		try {
+			conn = DBInterfaceLocal.getSQLConnection();
+			String findcogiSql = "select i.InvoiceNumber,i.Discount, SUM(id.SoldPrice*Quantity) as invTotal,SUM(id.ActualPrice*Quantity) as ourPrice"
+					+ ",SUM(Quantity) as TotalItems from invoice i, invoicedetails id "
+					+ " WHERE i.InvoiceNumber = id.InvoiceNumber AND i.OrderDate BETWEEN  '"
+					+ DateUtils.convertUSToMySQLFormat(fromDate.trim())
+					+ "' "
+					+ "AND '"
+					+ DateUtils.convertUSToMySQLFormat(toDate.trim())
+					+ "'"
+					+ " and id.ActualPrice > 0 GROUP BY InvoiceNumber Having invTotal > 0 Order By i.InvoiceNumber DESC";
+			System.err.println("find sql----" + findcogiSql);
+			pstmt = conn.createStatement();
+
+			rs = pstmt.executeQuery(findcogiSql);
+			int totalItems = 0;
+			BigDecimal totalDiscount = new BigDecimal(0);
+			BigDecimal totalInvTotal = new BigDecimal(0);
+			BigDecimal totalOurPrice = new BigDecimal(0);
+			BigDecimal totalMargin = new BigDecimal(0);
+			totalMargin.setScale(2,RoundingMode.HALF_EVEN);
+			
+			double discount = 0, invTotal = 0, ourPrice = 0, margin = 0;
+			StringBuilder sbOuter = new StringBuilder();
+			sbOuter.append("<TR><TD align='Center' ><TABLE border='1'><TBODY><TR>");
+			sbOuter.append("<TH width='100'>Inv. No.</TH><TH>Inv. Total</TH><TH>Discount</TH><TH>Our Cost</TH><TH>Margin</TH></TR>");
+
+			while (rs.next()) {
+				discount = rs.getDouble("Discount");
+				invTotal = rs.getDouble("invTotal");
+				ourPrice = rs.getDouble("ourPrice");
+				margin = new BigDecimal((invTotal - ourPrice - discount)).setScale(2,RoundingMode.HALF_EVEN).doubleValue();
+				
+				StringBuilder sbInner = new StringBuilder();
+				sbInner.append("<TR>");
+				sbInner.append("<TD>");
+				sbInner.append(rs.getString("InvoiceNumber"));
+				sbInner.append("</TD>");
+				sbInner.append("<TD>");
+				sbInner.append( invTotal );
+				sbInner.append("</TD>");
+				sbInner.append("<TD>" );
+				sbInner.append( discount );
+				sbInner.append( "</TD>");
+				sbInner.append("<TD>" );
+				sbInner.append(ourPrice);
+				sbInner.append( "</TD>");
+				sbInner.append("<TD>");
+				sbInner.append( margin );
+				sbInner.append( "</TD>");
+				sbInner.append("</TR>");
+				sbOuter.append(sbInner);
+				totalItems += rs.getInt("TotalItems");
+				
+				totalDiscount = totalDiscount.add(new BigDecimal(discount));
+				totalInvTotal = totalInvTotal.add(new BigDecimal(invTotal));
+				totalOurPrice = totalOurPrice.add(new BigDecimal(ourPrice));
+				totalMargin = totalMargin.add(new BigDecimal(margin));				
+				
+			}
+			double totPercent = (totalMargin.doubleValue()*100) /(totalInvTotal.doubleValue()) ;
+			
+			totals.append("<TR><TD align='Right' ><TABLE>");
+			totals.append("<TR>");
+			totals.append("<TD><B>Total No. Of Items</B></TD>");
+			totals.append("<TD><B>" + totalItems + "</B></TD>");
+			totals.append("</TR><TR>");
+			totals.append("<TD><B>Total Price</B></TD>");
+			totals.append("<TD><B>" + totalOurPrice.setScale(2,RoundingMode.HALF_EVEN).doubleValue() + "</B></TD>");
+			totals.append("</TR><TR>");
+			totals.append("<TD><B>Total Sold Price</B></TD>");
+			totals.append("<TD><B>" + totalInvTotal.setScale(2,RoundingMode.HALF_EVEN).doubleValue() + "</B></TD>");
+			totals.append("</TR><TR>");
+			totals.append("<TD><B>Total Discount Given</B></TD>");
+			totals.append("<TD><B>" + totalDiscount.setScale(2,RoundingMode.HALF_EVEN).doubleValue() + "</B></TD>");
+			totals.append("</TR><TR>");
+			totals.append("<TD><B>Margin On All Items</B></TD>");
+			totals.append("<TD><B>" + totalMargin.setScale(2,RoundingMode.HALF_EVEN).doubleValue() + "</B></TD>");
+			totals.append("</TR><TR>");
+			totals.append("<TD><B>Percentage of Margin</B></TD>");
+			totals.append("<TD><B>" +Math.rint( totPercent) + "%</B></TD>");
+			totals.append("</TR>");
+			totals.append("</TABLE></TD></TR>");
+			totals.append(sbOuter);
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+		}
+		return totals.toString();
+	}
 
   public static Hashtable costOfGoodsInvoices(UserBean user, String fromDate, String toDate)
      throws UserException {
@@ -4795,6 +4926,52 @@ public class ReportUtils {
     }
     return invoiceHistory;
   }
+
+	public static void createCOGReport(String fileName, String data) {
+		try {			
+			
+
+			File fileHtml = new File("c:/Tomcat/webapps/bvaschicago/html/reports/"
+					//"E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/"
+							+ fileName);
+			FileWriter ft = new FileWriter(fileHtml);
+			// ft.write(getHeaders("General Reports Printer"));
+			ft.write(getHeaders(""));
+
+			ft.write("<table>");
+			ft.write("<tr>");
+			ft.write("<td colspan='4' align='center' style='font-size: 20pt '>");
+			ft.write("<B>Best Value Auto Body Supply Inc.</B><BR/>");
+			ft.write("</td>");
+			ft.write("<tr>");
+			ft.write("<td colspan='4' align='center' style='font-size: 16pt '>");
+			ft.write("<B>General Reports Viewer</B>");
+			ft.write("<BR/>");
+			ft.write("<hr align='center' noshade size='2px' width='500px'/><BR/>");
+			ft.write("</td>");
+			ft.write("</tr>");
+			ft.write("<TR><TD align='Center' colspan='4'><H2>Cost Of Goods Report</H2></TD></TR>");
+			ft.write("<tr style='border: thin;'>");
+			ft.write(data);
+			ft.write("</table>");
+			ft.write("</td>");
+			ft.write("</tr>");
+
+			ft.write("<tr>");
+			ft.write("<td colspan='4'>");
+			ft.write("<hr align='center' noshade size='2px' width='700px'/>");
+			ft.write("</td>");
+			ft.write("</tr>");
+
+			ft.write("</table>");
+			ft.write(getFooters());
+			ft.close();
+		} catch (IOException ioe) {
+			logger.error("Exception in PrintUtils.createInvoice: " + ioe);
+		} catch (Exception e) {
+			logger.error("Exception in PrintUtils.createInvoice: " + e);
+		}
+	}
 
   public static void createReport(Hashtable toShowSales) {
     try {

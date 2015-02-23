@@ -336,36 +336,77 @@ public class TodaysOrdersAction extends Action {
       }
 
     } else if (buttonClicked.equals("CostOfGoodsSold")) {
-      logger.error(new java.util.Date(System.currentTimeMillis()) + "-----CostOfGoodsSold-----"
-          + user.getUsername());
-      try {
-        String costOfGoodsFromOrderDate = "";
-        String costOfGoodsToOrderDate = "";
-        costOfGoodsFromOrderDate = todForm.getCostOfGoodsFromOrderDate();
-        costOfGoodsToOrderDate = todForm.getCostOfGoodsToOrderDate();
-        if (!costOfGoodsFromOrderDate.trim().equals("")
-            && !costOfGoodsToOrderDate.trim().equals("")) {
-          Hashtable toCostOfGoodsInvoices =
-              ReportUtils.costOfGoodsInvoices(user, costOfGoodsFromOrderDate,
-                  costOfGoodsToOrderDate);
-          if (toCostOfGoodsInvoices != null) {
-            session.setAttribute("toShowReports", toCostOfGoodsInvoices);
-            forwardPage = "ShowReports";
+        logger.error(new java.util.Date(System.currentTimeMillis()) + "-----CostOfGoodsSold-----"
+            + user.getUsername());
+        try {
+          
+          String costOfGoodsFromOrderDate = todForm.getCostOfGoodsFromOrderDate();
+          String costOfGoodsToOrderDate = todForm.getCostOfGoodsToOrderDate();
+          if (!costOfGoodsFromOrderDate.trim().equals("")
+              && !costOfGoodsToOrderDate.trim().equals("")) {
+          	String  toCostOfGoodsInvoices =
+                ReportUtils.findCOGIByOrderDate(user, costOfGoodsFromOrderDate,
+                    costOfGoodsToOrderDate);
+          	
+  			
+            if (toCostOfGoodsInvoices != null) {
+          	  String fileName = "";
+    			if (costOfGoodsFromOrderDate.trim().equals(costOfGoodsToOrderDate.trim())) {
+    				fileName = "COGS" + costOfGoodsToOrderDate.trim() + ".html";
+    			} else {
+    				fileName = "COGS" + costOfGoodsFromOrderDate.trim() + costOfGoodsToOrderDate.trim() + ".html";
+    			}
+    			ReportUtils.createCOGReport(fileName,toCostOfGoodsInvoices);
+    			session.setAttribute("fileName", fileName);
+              session.setAttribute("toShowReports", toCostOfGoodsInvoices);
+              forwardPage = "ShowCOGIReports";
+            } else {
+              errorBean.setError("Please Check the Date .....");
+              forwardPage = "TodaysOrders";
+            }
           } else {
-            errorBean.setError("Please Check the Date .....");
+            errorBean.setError("Please Enter the date for the Invoices to Show .....");
             forwardPage = "TodaysOrders";
           }
-        } else {
-          errorBean.setError("Please Enter the date for the Invoices to Show .....");
+        } catch (UserException e) {
+          logger.error(e);
+          errorBean.setError("Please check your Input:" + e.getMessage());
           forwardPage = "TodaysOrders";
         }
-      } catch (UserException e) {
-        logger.error(e);
-        errorBean.setError("Please check your Input:" + e.getMessage());
-        forwardPage = "TodaysOrders";
-      }
 
-    } else if (buttonClicked.equals("VendorPurchases")) {
+      }
+//    } else if (buttonClicked.equals("CostOfGoodsSold")) {
+//      logger.error(new java.util.Date(System.currentTimeMillis()) + "-----CostOfGoodsSold-----"
+//          + user.getUsername());
+//      try {
+//        String costOfGoodsFromOrderDate = "";
+//        String costOfGoodsToOrderDate = "";
+//        costOfGoodsFromOrderDate = todForm.getCostOfGoodsFromOrderDate();
+//        costOfGoodsToOrderDate = todForm.getCostOfGoodsToOrderDate();
+//        if (!costOfGoodsFromOrderDate.trim().equals("")
+//            && !costOfGoodsToOrderDate.trim().equals("")) {
+//          Hashtable toCostOfGoodsInvoices =
+//              ReportUtils.costOfGoodsInvoices(user, costOfGoodsFromOrderDate,
+//                  costOfGoodsToOrderDate);
+//          if (toCostOfGoodsInvoices != null) {
+//            session.setAttribute("toShowReports", toCostOfGoodsInvoices);
+//            forwardPage = "ShowReports";
+//          } else {
+//            errorBean.setError("Please Check the Date .....");
+//            forwardPage = "TodaysOrders";
+//          }
+//        } else {
+//          errorBean.setError("Please Enter the date for the Invoices to Show .....");
+//          forwardPage = "TodaysOrders";
+//        }
+//      } catch (UserException e) {
+//        logger.error(e);
+//        errorBean.setError("Please check your Input:" + e.getMessage());
+//        forwardPage = "TodaysOrders";
+//      }
+//
+//    }
+    else if (buttonClicked.equals("VendorPurchases")) {
       logger.error(new java.util.Date(System.currentTimeMillis()) + "-----VendorPurchases-----"
           + user.getUsername());
       try {
