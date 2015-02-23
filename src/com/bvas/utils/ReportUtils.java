@@ -4811,7 +4811,6 @@ public class ReportUtils {
       FileWriter ft = new FileWriter(fileHtml);
       // ft.write(getHeaders("General Reports Printer"));
       ft.write(getHeaders(""));
-
       ft.write("<table>");
       ft.write("<tr>");
       ft.write("<td colspan='" + arraySize + "' align='center' style='font-size: 20pt '>");
