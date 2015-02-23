@@ -112,7 +112,7 @@ public class VendorOrderDetailsAction extends Action {
           forwardPage = "VendorOrderDetails";
         }
       } catch (Exception e) {
-    	logger.error(e);
+        logger.error(e);
         errorBean.setError(e.getMessage());
         forwardPage = "VendorOrderDetails";
       }

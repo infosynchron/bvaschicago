@@ -502,22 +502,14 @@ public class InvoiceBean implements Serializable {
       throw new UserException(
           "Unable to Change the invoice<BR/>Possible cause include Changing Invoice Number, Customer Id, SalesPerson Name"
               + e);
-    }finally {
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
   }
 
   public static InvoiceBean getInvoice(int invNo) throws UserException {
     InvoiceBean invoice = null;
-    Connection con = null;
+
     try {
-       con = DBInterfaceLocal.getSQLConnection();
+      Connection con = DBInterfaceLocal.getSQLConnection();
       Statement stmt = con.createStatement();
       String getSQL = "";
       getSQL += "select * from Invoice where InvoiceNumber = " + invNo;
@@ -907,7 +899,7 @@ public class InvoiceBean implements Serializable {
   public double checkPromoDiscount() {
     double newDisc = 0.0;
     Connection con = DBInterfaceLocal.getSQLConnection();
-    Statement stmt = null;
+
     Vector<InvoiceDetailsBean> v = getInvoiceDetails();
     Enumeration<InvoiceDetailsBean> ennum = v.elements();
     double totDiscount = 0.0;
@@ -922,7 +914,7 @@ public class InvoiceBean implements Serializable {
           if (inStock >= 0) {
             double costPrice = bean.getSoldPrice() * bean.getQuantity();
             try {
-               stmt = con.createStatement();
+              Statement stmt = con.createStatement();
               ResultSet rs =
                   stmt.executeQuery("Select * from SaleParts Where PartNo='" + bean.getPartNumber()
                       + "'");
@@ -946,22 +938,7 @@ public class InvoiceBean implements Serializable {
             } catch (Exception e) {
               logger.error(e);
               continue;
-            } finally {
-            	if (stmt != null) {
-    				try {
-    					stmt.close();
-    				} catch (SQLException e) {
-    					System.out.println(e.getMessage());
-    				}
-    			}
-    			if (con != null) {
-    				try {
-    					con.close();
-    				} catch (SQLException e) {
-    					System.out.println(e.getMessage());
-    				}
-    			}
-    		}
+            }
 
           } else {
             continue;
@@ -978,13 +955,12 @@ public class InvoiceBean implements Serializable {
   public void addPayment(int invNo, double amount, String date, String paymentType, String userName)
       throws UserException {
     Connection con = DBInterfaceLocal.getSQLConnection();
-    Statement stmt = null;
     try {
 
       String status = InvoiceBean.getInvoice(invNo).getStatus();
       if (!status.trim().equals("C") && !status.trim().equals("W")) {
         con.setAutoCommit(false);
-         stmt = con.createStatement();
+        Statement stmt = con.createStatement();
         String sql =
             "INSERT INTO AppliedAmounts (InvoiceNumber, AppliedAmount, AppliedDate, PaymentType, UserName, PaymentTime) VALUES ('"
                 + invNo
@@ -1023,29 +999,12 @@ public class InvoiceBean implements Serializable {
         logger.error(e);
       }
       throw new UserException("Payment not added - " + e);
-    }finally {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
   }
 
   public void deletePayment(int invNo, double amount, String date, String paymentType)
       throws UserException {
     Connection con = DBInterfaceLocal.getSQLConnection();
-    Statement stmt2 = null;
     try {
 
       Statement stmt1 = con.createStatement();
@@ -1090,7 +1049,7 @@ public class InvoiceBean implements Serializable {
         String sql2 =
             "UPDATE Invoice SET AppliedAmount=AppliedAmount-" + amount + ", Balance=Balance+"
                 + amount + ", Status='P' WHERE InvoiceNumber=" + invNo;
-         stmt2 = con.createStatement();
+        Statement stmt2 = con.createStatement();
         stmt2.execute(sql2);
         setAppliedAmount(getAppliedAmount() - amount);
 
@@ -1110,32 +1069,15 @@ public class InvoiceBean implements Serializable {
         logger.error(e);
       }
       throw new UserException("Payment not deleted - " + e);
-    }finally {
-		if (stmt2 != null) {
-			try {
-				stmt2.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
   }
 
   public String[][] getPayments(int invNo) throws UserException {
     Connection con = DBInterfaceLocal.getSQLConnection();
-    Statement stmt1 = null;
     String[][] payments = null;
     try {
 
-       stmt1 = con.createStatement();
+      Statement stmt1 = con.createStatement();
       ResultSet rs1 =
           stmt1.executeQuery("Select count(*) from AppliedAmounts Where InvoiceNumber='" + invNo
               + "'");
@@ -1163,23 +1105,7 @@ public class InvoiceBean implements Serializable {
     } catch (SQLException e) {
       logger.error(e);
       throw new UserException("Exception When Finding Payments - " + e);
-    }finally {
-		if (stmt1 != null) {
-			try {
-				stmt1.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
 
     return payments;
   }
@@ -1228,12 +1154,10 @@ public class InvoiceBean implements Serializable {
       throws UserException {
     boolean doubleReturn = false;
     Connection con = DBInterfaceLocal.getSQLConnection();
-    Statement stmt = null;
-    ResultSet rs1 = null;
     try {
 
-       stmt = con.createStatement();
-       rs1 =
+      Statement stmt = con.createStatement();
+      ResultSet rs1 =
           stmt.executeQuery("Select InvoiceNumber From Invoice Where ReturnedInvoice=" + retInv);
       String sql = "Select Sum(Quantity) from InvoiceDetails where (InvoiceNumber=" + retInv;
       while (rs1.next()) {
@@ -1252,52 +1176,20 @@ public class InvoiceBean implements Serializable {
       }
     } catch (SQLException e) {
       logger.error(e);
-    }finally {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
     return doubleReturn;
   }
 
   public static void changeIsPrinted(int invNo) {
     Connection con = DBInterfaceLocal.getSQLConnection();
-    Statement stmt = null;
     try {
-       stmt = con.createStatement();
+      Statement stmt = con.createStatement();
       stmt.executeUpdate("Update Invoice Set IsPrinted='Y' where InvoiceNumber=" + invNo);
     } catch (SQLException e) {
 
       logger.info("In InvoiceBean-When changing the print Flag::::" + invNo + "::::"
           + e.getMessage());
-    }finally {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
   }
 
   public static void changeIsDelivered(int invNo, Connection con) {
@@ -1314,11 +1206,10 @@ public class InvoiceBean implements Serializable {
 
   public static Vector<InvoiceBean> getPendingInvoices(String customerId) throws UserException {
     Vector<InvoiceBean> pendingInvoices = null;
-    Connection con = null;
-    Statement stmt = null;
+
     try {
-       con = DBInterfaceLocal.getSQLConnection();
-       stmt = con.createStatement();
+      Connection con = DBInterfaceLocal.getSQLConnection();
+      Statement stmt = con.createStatement();
       String getSQL = "";
       getSQL +=
           "select * from Invoice where Balance != 0 and Status != 'C' and Status != 'W' and CustomerId='"
@@ -1367,22 +1258,7 @@ public class InvoiceBean implements Serializable {
     } catch (SQLException e) {
       logger.error(e);
       throw new UserException("Unable to get the Invoices<BR/>" + e);
-    }finally {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
 
     return pendingInvoices;
   }
@@ -1446,11 +1322,10 @@ public class InvoiceBean implements Serializable {
 
   public static Vector<InvoiceBean> getRoutingPendingInvoices() throws UserException {
     Vector<InvoiceBean> pendingInvoices = null;
-    Connection con = null;
-    Statement stmt = null;
+
     try {
-       con = DBInterfaceLocal.getSQLConnection();
-       stmt = con.createStatement();
+      Connection con = DBInterfaceLocal.getSQLConnection();
+      Statement stmt = con.createStatement();
 
       long currTime = System.currentTimeMillis();
       long diffPeriod = 1296000000L;
@@ -1463,10 +1338,7 @@ public class InvoiceBean implements Serializable {
       getSQL +=
           "select InvoiceNumber, OrderDate, Balance, InvoiceTotal from Invoice where InvoiceNumber > 600000 and ReturnedInvoice = 0  and OrderDate>'"
               + DateUtils.convertUSToMySQLFormat(ddDate) + "' order by InvoiceNumber ";
-      System.out.println("getSQL--"+getSQL);
       ResultSet rs = stmt.executeQuery(getSQL);
-      Statement stmtX = null;
-      ResultSet rsX = null;
       while (rs.next()) {
         if (pendingInvoices == null) {
           pendingInvoices = new Vector<InvoiceBean>();
@@ -1483,8 +1355,9 @@ public class InvoiceBean implements Serializable {
           continue;
         }
 
-         stmtX = con.createStatement();
-         rsX = stmtX.executeQuery("Select Name From PartsPulled Where InvoiceNumber='" + invNo + "'");
+        Statement stmtX = con.createStatement();
+        ResultSet rsX =
+            stmtX.executeQuery("Select Name From PartsPulled Where InvoiceNumber='" + invNo + "'");
         if (rsX.next()) {
           continue;
         }
@@ -1504,42 +1377,21 @@ public class InvoiceBean implements Serializable {
         pendingInvoices.add(invoice);
 
       }
-      stmtX.close();
-      rsX.close();
-      rs.close();
+
     } catch (SQLException e) {
       logger.error(e);
       throw new UserException("Unable to get the Invoices<BR/>" + e);
-    }finally {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
 
     return pendingInvoices;
   }
 
   public static Vector<String[]> getRoutingPendingInvoices2() throws UserException {
     Vector<String[]> pendingInvoices = null;
-    Connection con = null;
-    Statement stmt = null;
+
     try {
-       con = DBInterfaceLocal.getSQLConnection();
-       stmt = con.createStatement();
-       Statement stmtX = null;
-       ResultSet rsX = null;
+      Connection con = DBInterfaceLocal.getSQLConnection();
+      Statement stmt = con.createStatement();
       String getSQL = "";
       getSQL +=
           "select InvoiceNumber, OrderDate, Balance, InvoiceTotal from Invoice where InvoiceNumber > 400000 and ReturnedInvoice = 0 order by InvoiceNumber ";
@@ -1560,8 +1412,9 @@ public class InvoiceBean implements Serializable {
           continue;
         }
 
-         stmtX = con.createStatement();
-         rsX = stmtX.executeQuery("Select Name From PartsPulled Where InvoiceNumber='" + invNo + "'");
+        Statement stmtX = con.createStatement();
+        ResultSet rsX =
+            stmtX.executeQuery("Select Name From PartsPulled Where InvoiceNumber='" + invNo + "'");
         if (rsX.next()) {
           continue;
         }
@@ -1579,29 +1432,11 @@ public class InvoiceBean implements Serializable {
         pendingInvoices.add(retStr);
 
       }
-      stmtX.close();
-      rsX.close();
-      rs.close();
+
     } catch (SQLException e) {
       logger.error(e);
       throw new UserException("Unable to get the Invoices<BR/>" + e);
-    }finally {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
 
     return pendingInvoices;
   }
@@ -1795,34 +1630,17 @@ public class InvoiceBean implements Serializable {
     // logger.error("2---" + invNo);
     if (invNo != 0 && InvoiceBean.isAvailable(invNo)) {
       Connection con = DBInterfaceLocal.getSQLConnection();
-      Statement stmt = null;
       try {
-         stmt = con.createStatement();
+        Statement stmt = con.createStatement();
         stmt.execute("Update Invoice set Status='C' where InvoiceNumber=" + invNo);
       } catch (SQLException e) {
         logger.error("In Close Invoice: " + e.getMessage());
-      }finally {
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-		}
+      }
     }
   }
 
   public static void createHistory(UserBean user, InvoiceBean oldInvoice, InvoiceBean newInvoice) {
     Connection con = DBInterfaceLocal.getSQLConnection();
-    PreparedStatement pstmt = null;
     try {
       int invoiceNo = 0;
       String modifiedBy = user.getUsername();
@@ -1928,7 +1746,8 @@ public class InvoiceBean implements Serializable {
         }
       }
 
-       pstmt = con.prepareStatement("INSERT INTO InvoiceHistory (InvoiceNumber, ModifiedBy, ModifiedDate, ModifiedOrder, Remarks1, Remarks2, Remarks3, Remarks4, Remarks5) values (?, ?, ?, ?, ?, ?, ?, ?, ?) ");
+      PreparedStatement pstmt =
+          con.prepareStatement("INSERT INTO InvoiceHistory (InvoiceNumber, ModifiedBy, ModifiedDate, ModifiedOrder, Remarks1, Remarks2, Remarks3, Remarks4, Remarks5) values (?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 
       pstmt.clearParameters();
 
@@ -1978,22 +1797,7 @@ public class InvoiceBean implements Serializable {
 
     } catch (Exception e) {
       logger.error(e);
-    }finally {
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
   }
 
 }

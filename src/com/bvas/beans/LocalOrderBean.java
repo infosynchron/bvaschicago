@@ -145,7 +145,6 @@ public class LocalOrderBean {
 
       sql += ")";
       pstmt = con.createStatement();
-      System.err.println("Order--"+sql);
       rs = pstmt.executeQuery(sql);
       if (rs.next()) {
         loBean = new LocalOrderBean();
@@ -171,29 +170,7 @@ public class LocalOrderBean {
     } catch (Exception e) {
       logger.error("Exception In LocalOrderBean: " + e);
       loBean = null;
-    }finally {
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
     return loBean;
   }
 
@@ -370,8 +347,6 @@ public class LocalOrderBean {
 
   public void deleteLocalOrder() throws UserException {
     Connection con = DBInterfaceLocal.getSQLConnection();
-    PreparedStatement pstmt1 = null;
-    PreparedStatement pstmt2 = null;
     try {
       con.setAutoCommit(false);
 
@@ -411,7 +386,7 @@ public class LocalOrderBean {
 
       String sql1 =
           "DELETE FROM LocalOrders WHERE SupplierId=? and InvoiceNo=? and VendorInvNo=? and PartNo=? ";
-       pstmt1 = con.prepareStatement(sql1);
+      PreparedStatement pstmt1 = con.prepareStatement(sql1);
       pstmt1.clearParameters();
       pstmt1.setInt(1, getSupplierId());
       pstmt1.setInt(2, getInvoiceNo());
@@ -421,7 +396,7 @@ public class LocalOrderBean {
 
       part.changePart();
 
-       pstmt2 =
+      PreparedStatement pstmt2 =
           con.prepareStatement("Update InvoiceDetails Set ActualPrice=0 Where ActualPrice="
               + getPrice() + " and InvoiceNumber=" + getInvoiceNo() + " and PartNumber='"
               + getPartNo().trim() + "'");
@@ -444,29 +419,7 @@ public class LocalOrderBean {
         logger.error(e);
       }
       throw new UserException(e.getMessage());
-    }finally {
-		if (pstmt1 != null) {
-			try {
-				pstmt1.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		if (pstmt2 != null) {
-			try {
-				pstmt2.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
   }
 
   public static Hashtable showLocalPurchases(UserBean user, String fromDate, String toDate)

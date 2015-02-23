@@ -163,7 +163,7 @@
 		<forward name="VendorOurPart" path="/html/VendorOurPart.jsp" />
 		<forward name="VendorFinal" path="/html/VendorFinal.jsp" />
 		<forward name="VendorAdminUtils" path="/html/VendorAdminUtils.jsp" />
-		<forward name="VendorOrderDetails" path="/html/VendorOrderDetails.jsp" />		<forward name="ShowCOGIReports" path="/html/ShowCOGReport.jsp" />				
+		<forward name="VendorOrderDetails" path="/html/VendorOrderDetails.jsp" />
 	</global-forwards>
 
 	<!-- ========== Action Mapping Definitions ============================== -->

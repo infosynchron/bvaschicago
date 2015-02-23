@@ -40,8 +40,6 @@ public class ShowReportsAction extends Action {
       forwardPage = "Login";
     } else if (buttonClicked.equals("PrintThisReport")) {
       forwardPage = "ShowReports";
-    }else if (buttonClicked.equals("PrintCOGReport")) {
-    	forwardPage = "ShowCOGIReports";
     } else if (buttonClicked.equals("Back")) {
       String backScreen = (String) session.getAttribute("BackScreen");
       if (backScreen == null || backScreen.trim().equals("")) {

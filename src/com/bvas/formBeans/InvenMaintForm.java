@@ -32,11 +32,11 @@ public class InvenMaintForm extends ActionForm {
 
   private String reorderLevel = null;
 
-  private String compPrice1 = null;
-
-  private String compPrice2 = null;
-
-  private String compPrice3 = null;
+//  private String compPrice1 = null;
+//
+//  private String compPrice2 = null;
+//
+//  private String compPrice3 = null;
 
   private String keystoneNumber = null;
 
@@ -156,29 +156,29 @@ public class InvenMaintForm extends ActionForm {
     this.reorderLevel = reorderLevel;
   }
 
-  public String getCompPrice1() {
-    return (this.compPrice1);
-  }
+//  public String getCompPrice1() {
+//    return (this.compPrice1);
+//  }
+//
+//  public void setCompPrice1(String compPrice1) {
+//    this.compPrice1 = compPrice1;
+//  }
+//
+//  public String getCompPrice2() {
+//    return (this.compPrice2);
+//  }
 
-  public void setCompPrice1(String compPrice1) {
-    this.compPrice1 = compPrice1;
-  }
-
-  public String getCompPrice2() {
-    return (this.compPrice2);
-  }
-
-  public void setCompPrice2(String compPrice2) {
-    this.compPrice2 = compPrice2;
-  }
-
-  public String getCompPrice3() {
-    return (this.compPrice3);
-  }
-
-  public void setCompPrice3(String compPrice3) {
-    this.compPrice3 = compPrice3;
-  }
+//  public void setCompPrice2(String compPrice2) {
+//    this.compPrice2 = compPrice2;
+//  }
+//
+//  public String getCompPrice3() {
+//    return (this.compPrice3);
+//  }
+//
+//  public void setCompPrice3(String compPrice3) {
+//    this.compPrice3 = compPrice3;
+//  }
 
   public String getKeystoneNumber() {
     return (this.keystoneNumber);
@@ -205,9 +205,9 @@ public class InvenMaintForm extends ActionForm {
   }
 
   public void reset() {
-    setCompPrice1("");
-    setCompPrice2("");
-    setCompPrice3("");
+//    setCompPrice1("");
+//    setCompPrice2("");
+//    setCompPrice3("");
     setCostPrice("");
     setInterchangeNo("");
     setKeystoneNumber("");

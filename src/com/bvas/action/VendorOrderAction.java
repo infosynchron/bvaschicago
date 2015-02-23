@@ -774,10 +774,9 @@ public class VendorOrderAction extends Action {
   }
 
   public void updatePrices(Vector v, int supId) {
-	  Connection connection = null;
     try {
       // long st = System.currentTimeMillis();
-       connection = DBInterfaceLocal.getSQLConnection();
+      Connection connection = DBInterfaceLocal.getSQLConnection();
       OrderDetailsForm oForm = null;
       Enumeration ennum = v.elements();
       PreparedStatement pstmt =
@@ -805,15 +804,7 @@ public class VendorOrderAction extends Action {
       }
     } catch (SQLException e) {
       logger.error("Exception in VendorOrderAction When Updating Prices --- " + e);
-    }finally {		
-		if (connection != null) {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
   }
 
   public int getCommitted(String partno, String interNo) {

@@ -2,8 +2,6 @@ package com.bvas.action;
 
 import java.io.IOException;
 import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -341,27 +339,18 @@ public class TodaysOrdersAction extends Action {
       logger.error(new java.util.Date(System.currentTimeMillis()) + "-----CostOfGoodsSold-----"
           + user.getUsername());
       try {
-        
-        String costOfGoodsFromOrderDate = todForm.getCostOfGoodsFromOrderDate();
-        String costOfGoodsToOrderDate = todForm.getCostOfGoodsToOrderDate();
+        String costOfGoodsFromOrderDate = "";
+        String costOfGoodsToOrderDate = "";
+        costOfGoodsFromOrderDate = todForm.getCostOfGoodsFromOrderDate();
+        costOfGoodsToOrderDate = todForm.getCostOfGoodsToOrderDate();
         if (!costOfGoodsFromOrderDate.trim().equals("")
             && !costOfGoodsToOrderDate.trim().equals("")) {
-        	String  toCostOfGoodsInvoices =
-              ReportUtils.findCOGIByOrderDate(user, costOfGoodsFromOrderDate,
+          Hashtable toCostOfGoodsInvoices =
+              ReportUtils.costOfGoodsInvoices(user, costOfGoodsFromOrderDate,
                   costOfGoodsToOrderDate);
-        	
-			
           if (toCostOfGoodsInvoices != null) {
-        	  String fileName = "";
-  			if (costOfGoodsFromOrderDate.trim().equals(costOfGoodsToOrderDate.trim())) {
-  				fileName = "COGS" + costOfGoodsToOrderDate.trim() + ".html";
-  			} else {
-  				fileName = "COGS" + costOfGoodsFromOrderDate.trim() + costOfGoodsToOrderDate.trim() + ".html";
-  			}
-  			ReportUtils.createCOGReport(fileName,toCostOfGoodsInvoices);
-  			session.setAttribute("fileName", fileName);
             session.setAttribute("toShowReports", toCostOfGoodsInvoices);
-            forwardPage = "ShowCOGIReports";
+            forwardPage = "ShowReports";
           } else {
             errorBean.setError("Please Check the Date .....");
             forwardPage = "TodaysOrders";

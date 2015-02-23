@@ -56,7 +56,7 @@ public class PrintUtils {
     boolean fine = true;
 
     File file =
-        new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/Invoice" + invoice.getInvoiceNumber()
+        new File("c:/Tomcat/webapps/bvaschicago/html/reports/Invoice" + invoice.getInvoiceNumber()
             + ".html");
 
     // if file doesnt exists, then create it
@@ -459,7 +459,7 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/Invoice"
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/Invoice"
               + invoice.getInvoiceNumber() + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write("<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>");
@@ -848,7 +848,7 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/Invoice"
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/Invoice"
               + invoice.getInvoiceNumber() + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write("<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>");
@@ -1302,7 +1302,7 @@ public class PrintUtils {
   public static void createTodaysOrders(UserBean user) {
     try {
 
-      File fileHtml = new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/TodaysOrders.html");
+      File fileHtml = new File("c:/Tomcat/webapps/bvaschicago/html/reports/TodaysOrders.html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
 
@@ -1428,7 +1428,7 @@ public class PrintUtils {
     ResultSet rs2 = null;
     try {
       con = DBInterfaceLocal.getSQLConnection();
-      File fileHtml = new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/ClientListing.html");
+      File fileHtml = new File("c:/Tomcat/webapps/bvaschicago/html/reports/ClientListing.html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
 
@@ -1619,7 +1619,7 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/ClientListing" + fromDate + toDate
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/ClientListing" + fromDate + toDate
               + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
@@ -1877,7 +1877,7 @@ public class PrintUtils {
   public static void createVendorListing() {
     try {
 
-      File fileHtml = new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/VendorListing.html");
+      File fileHtml = new File("c:/Tomcat/webapps/bvaschicago/html/reports/VendorListing.html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
 
@@ -1972,7 +1972,7 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/Fax" + faxBean.getFaxNumber()
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/Fax" + faxBean.getFaxNumber()
               + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
@@ -2168,7 +2168,7 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/FinanceNotice" + custId.trim()
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/FinanceNotice" + custId.trim()
               + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
@@ -2434,12 +2434,12 @@ public class PrintUtils {
 
   public static void createFinanceNotice(String custId, Hashtable<String, String> checkedInvoices) {
 
-    java.io.File ff = new java.io.File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/SFN.html");
+    java.io.File ff = new java.io.File("c:/Tomcat/webapps/bvaschicago/html/reports/SFN.html");
     ff.setWritable(true);
     ff.delete();
     org.apache.commons.io.FileUtils.deleteQuietly(ff);
 
-    File fileHtml = new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/SFN.html");
+    File fileHtml = new File("c:/Tomcat/webapps/bvaschicago/html/reports/SFN.html");
     FileWriter ft;
     Connection con = null;
     Statement stmt1 = null;
@@ -4659,7 +4659,7 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/FS" + DateUtils.getNewUSDate()
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/FS" + DateUtils.getNewUSDate()
               + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
@@ -4957,7 +4957,7 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/FA" + DateUtils.getNewUSDate()
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/FA" + DateUtils.getNewUSDate()
               + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
@@ -5194,11 +5194,8 @@ public class PrintUtils {
   public static void createInvoice(InvoiceBean invoice) {
     try {
 
-//      File fileHtml =
-//          new File("c:/Tomcat/webapps/bvaschicago/html/reports/Invoice"
-//              + invoice.getInvoiceNumber() + ".html");
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/Invoice"
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/Invoice"
               + invoice.getInvoiceNumber() + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       // ft.write(getHeaders());
@@ -5508,7 +5505,7 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/Invoice"
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/Invoice"
               + invoice.getInvoiceNumber() + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
@@ -5700,10 +5697,10 @@ public class PrintUtils {
       File fileHtml = null;
       File fileHtmlWO = null;
       fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/VendorOrder"
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/VendorOrder"
               + orderBean.getOrderNo() + ".html");
       fileHtmlWO =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/VendorOrderWOP"
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/VendorOrderWOP"
               + orderBean.getOrderNo() + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       FileWriter ftWO = new FileWriter(fileHtmlWO);
@@ -6080,7 +6077,7 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/RS" + driverName + ".html");
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/RS" + driverName + ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
 

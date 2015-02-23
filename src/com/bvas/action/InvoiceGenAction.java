@@ -3,7 +3,6 @@ package com.bvas.action;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.Enumeration;
@@ -208,9 +207,6 @@ public class InvoiceGenAction extends Action {
               while (rs.next()) {
                 errorBean.setError(rs.getString(1));
               }
-              rs.close();
-              stmt.close();
-              con.close();
             } catch (Exception e) {
               logger.error(e);
             }
@@ -414,8 +410,6 @@ public class InvoiceGenAction extends Action {
                 Connection con = DBInterfaceLocal.getSQLConnection();
                 Statement stmt = con.createStatement();
                 stmt.executeQuery("Delete from WriteOff Where InvoiceNo=" + invoiceNo);
-                stmt.close();
-                con.close();
               }
               errorBean.setError("INVOICE CHANGED SUCCESSFULLY!!!");
               String userAgent = request.getHeader("User-Agent");

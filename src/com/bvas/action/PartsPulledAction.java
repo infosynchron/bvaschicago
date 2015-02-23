@@ -85,16 +85,15 @@ public class PartsPulledAction extends Action {
 
   public void changeInvoices2(HttpServletRequest request, String whoPulled) throws UserException {
     HttpSession session = request.getSession(false);
-    Vector pendingInvoices = (Vector) session.getAttribute("RoutingPendingInvoices");    
+    Vector pendingInvoices = (Vector) session.getAttribute("RoutingPendingInvoices");
     Hashtable<String, String> checkedInvoices = new Hashtable<String, String>();
     boolean someChecked = false;
     if (pendingInvoices == null) {
       throw new UserException("No Invoices Found");
     }
-    Connection con = null;
-    Statement stmt = null;
+
     try {
-       con = DBInterfaceLocal.getSQLConnection();
+      Connection con = DBInterfaceLocal.getSQLConnection();
       for (int i = 1; i <= pendingInvoices.size(); i++) {
         String checkedBox = (String) request.getParameter("PP" + i);
         if (checkedBox == null) {
@@ -110,7 +109,7 @@ public class PartsPulledAction extends Action {
           invNo = 0;
         }
         if (invNo != 0) {
-           stmt = con.createStatement();
+          Statement stmt = con.createStatement();
           stmt.execute("Insert Into PartsPulled (InvoiceNumber, Name) Values ('" + invNo + "', '"
               + whoPulled + "') ");
           stmt.close();
@@ -118,22 +117,7 @@ public class PartsPulledAction extends Action {
       }// for loop
     } catch (SQLException e) {
       logger.error(e);
-    }finally {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
 
     if (!someChecked) {
       throw new UserException("No Invoices Selected.....");
@@ -152,7 +136,7 @@ public class PartsPulledAction extends Action {
     boolean someChecked = false;
 
     Connection con = DBInterfaceLocal.getSQLConnection();
-    Statement stmt = null;
+
     for (int i = 1; i <= pendingInvoices.size(); i++) {
       String checkedBox = (String) request.getParameter("PP" + i);
       if (checkedBox == null) {
@@ -170,28 +154,13 @@ public class PartsPulledAction extends Action {
         }
         if (invNo != 0) {
           try {
-             stmt = con.createStatement();
+            Statement stmt = con.createStatement();
             stmt.execute("Insert Into PartsPulled (InvoiceNumber, Name) Values ('" + invNo + "', '"
                 + whoPulled + "') ");
             stmt.close();
           } catch (Exception e) {
             logger.error(e);
-          }finally {
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
-			}
-		}
+          }
         }
 
       } catch (Exception e) {

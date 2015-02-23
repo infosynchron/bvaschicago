@@ -578,7 +578,7 @@ public class InvoiceArchAction extends Action {
         stmt2.close();
 
       }
-      rs.close();      
+      rs.close();
       rsX.close();
       stmt1.close();
       stmt.close();

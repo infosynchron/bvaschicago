@@ -3,7 +3,6 @@ package com.bvas.action;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
@@ -224,13 +223,11 @@ public class CustomerHistoryAction extends Action {
   }
 
   public Vector<String[]> addBCDetails(String customerId, Vector<String[]> custDetails) {
-	  Connection con = null;
-	  Statement stmt = null;
-	  ResultSet rs = null, rs1=null;
+
     try {
-       con = DBInterfaceLocal.getSQLConnection();
-       stmt = con.createStatement();
-       rs =
+      Connection con = DBInterfaceLocal.getSQLConnection();
+      Statement stmt = con.createStatement();
+      ResultSet rs =
           stmt.executeQuery("Select CheckId, EnteredDate, CheckNo, CheckDate, BouncedAmount, Balance from BouncedChecks Where CustomerId='"
               + customerId + "' order by 2 ");
       while (rs.next()) {
@@ -253,7 +250,7 @@ public class CustomerHistoryAction extends Action {
         retStr[5] = "**NOT PAID**";
 
         Statement stmt1 = con.createStatement();
-         rs1 =
+        ResultSet rs1 =
             stmt1
                 .executeQuery("Select AppliedDate, AppliedAmount from AppliedAmounts Where InvoiceNumber='BC"
                     + checkId + "'");
@@ -270,28 +267,11 @@ public class CustomerHistoryAction extends Action {
         custDetails.addElement(retStr);
       }
       rs.close();
-      rs1.close();
       stmt.close();
       con.close();
     } catch (Exception e) {
       logger.error(e.getMessage());
-    }finally {
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-		
-		if (con != null) {
-			try {
-				con.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}
-	}
+    }
     return custDetails;
 
   }

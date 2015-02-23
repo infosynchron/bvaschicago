@@ -12,7 +12,7 @@ public class DBInterfaceLocal {
   private static final String jdbcDriver = "com.mysql.jdbc.Driver";
 
   private static final String LOCAL_DB =
-      "jdbc:mysql://localhost:3306/bvasdb1?zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8&user=root&password=register";
+      "jdbc:mysql://localhost:3306/bvasdb?zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8&user=root&password=001FS740";
 
   private static Connection connection;
 
