@@ -17,8 +17,7 @@
 	String serverName = request.getHeader("Host").trim();
 	String toShowReports = (String) session.getAttribute("toShowReports");	
 	UserBean user = (UserBean) session.getAttribute("User");
-	String backScreen = "TodaysOrders";
-	//session.setAttribute("BackScreen", backScreen);
+	session.setAttribute("BackScreen", "TodaysOrders");
 	session.removeAttribute("toShowReports");
 %>
 
@@ -73,8 +72,9 @@ javascript:window.history.forward(1);
 				<TR>
 					<% 
 							String fileName=(String)session.getAttribute("fileName");
-							System.err.println(fileName);
+							//System.err.println(fileName);
 							session.removeAttribute("fileName");
+							
                         	String myPage = "http://" + serverName + "/bvaschicago/html/reports/" + fileName;
                         	String printMethod = "NewWindow('"+myPage+"', 'Ram','400','400','yes');return true;"; 
                         	if (user.getRole().trim().equalsIgnoreCase("High") || (user.getUsername().trim().equalsIgnoreCase("Margarita") )) {// && fileName.startsWith("Hist"))) {
