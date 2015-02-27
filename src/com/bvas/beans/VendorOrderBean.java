@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -2378,8 +2379,8 @@ public class VendorOrderBean {
 
       ResultSet rs = stmt.executeQuery(sql);
 
-      double totalPayment = 0.0;
-
+      //double totalPayment = 0.0;
+      BigDecimal  totPayments=new BigDecimal("0");
       mainHeading = " Suppliers Payments Paid As On " + DateUtils.getNewUSDate();
       subHeadings.addElement("Order No");
       subHeadings.addElement("Company Name");
@@ -2405,7 +2406,8 @@ public class VendorOrderBean {
           continue;
         }
         paymentDate = DateUtils.convertMySQLToUSFormat(paymentDate);
-        totalPayment += orderTotal;
+        totPayments = totPayments.add(new BigDecimal(orderTotal).setScale(2,BigDecimal.ROUND_HALF_EVEN));
+        //totalPayment += orderTotal;
 
         Hashtable totData = new Hashtable();
         totData.put("Order No", orderNo + "");
@@ -2423,16 +2425,9 @@ public class VendorOrderBean {
         throw new UserException(" No Pending Payments ");
       }
 
-      String totalPaymentStr = totalPayment + "";
-
-      if (totalPaymentStr.indexOf(".") == totalPaymentStr.length() - 2) {
-        totalPaymentStr += "0";
-      }
-
-      totalPaymentStr = NumberUtils.cutFractions(totalPaymentStr);
 
       totals[0][0] = "Orders Total";
-      totals[0][1] = totalPaymentStr;
+      totals[0][1] = totPayments.toString();
 
       toShowSales.put("FileName", fileName);
       toShowSales.put("BackScreen", "VendorOrderDetails");
