@@ -6077,7 +6077,8 @@ public class PrintUtils {
     try {
 
       File fileHtml =
-          new File("c:/Tomcat/webapps/bvaschicago/html/reports/RS" + driverName + ".html");
+          new File("c:/Tomcat/webapps/bvaschicago/html/reports/RS" + driverName + "_"+DateUtils.getNewUSDate()+ ".html");
+      //new File("E:/projects/myeclipse/.metadata/.me_tcat/webapps/bvaschicago/html/reports/RS" + driverName + "_"+DateUtils.getNewUSDate()+  ".html");
       FileWriter ft = new FileWriter(fileHtml);
       ft.write(getHeaders());
 

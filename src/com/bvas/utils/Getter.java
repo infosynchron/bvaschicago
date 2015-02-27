@@ -27,7 +27,7 @@ public class Getter {
         try {
             con = DBInterfaceLocal.getSQLConnection();
             stmtDrvr = con.createStatement();
-            rsDrvr = stmtDrvr.executeQuery("Select serial,drivername From driver Where active=1");
+            rsDrvr = stmtDrvr.executeQuery("Select serial,drivername From driver  Where active=1 order by drivername");
             while (rsDrvr.next()) {
                 Driver drvr = new Driver();
                 drvr.setSerial(rsDrvr.getString("serial"));
@@ -50,7 +50,7 @@ public class Getter {
         try {
             Connection con = DBInterfaceLocal.getSQLConnection();
             Statement stmt=con.createStatement();
-            ResultSet rs=stmt.executeQuery("Select * from warehousestaff where active=1");
+            ResultSet rs=stmt.executeQuery("Select * from warehousestaff where active=1 order by staffname");
             while(rs.next()){
                 WarehouseStaff staff=new WarehouseStaff();
                 staff.setSerialNo(rs.getInt("serial"));
